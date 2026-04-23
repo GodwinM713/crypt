@@ -1,57 +1,110 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 <head>
-  <title>Access Portal</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Access</title>
+
   <style>
-    body {
-      background: black;
-      color: #00f0ff;
-      font-family: monospace;
-      display: flex;
-      height: 100vh;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
+    * {
+      box-sizing: border-box;
     }
 
-    input, button {
-      margin: 10px;
-      padding: 10px;
+    body {
+      margin: 0;
+      height: 100vh;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: monospace;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+    }
+
+    input {
+      width: 340px;
+      height: 65px;
+      font-size: 22px;
+      text-align: center;
       background: transparent;
-      border: 1px solid #00f0ff;
-      color: #00f0ff;
+      border: 2px solid #ff0000;
+      color: #ff4d4d;
+      outline: none;
+      border-radius: 10px;
+
+      box-shadow:
+        0 0 12px #ff0000,
+        0 0 25px #ff0000 inset;
+
+      transition: 0.2s ease;
+    }
+
+    input:focus {
+      box-shadow:
+        0 0 25px #ff0000,
+        0 0 50px #ff0000 inset;
+    }
+
+    button {
+      width: 220px;
+      height: 65px;
+      font-size: 20px;
+      background: transparent;
+      border: 2px solid #ff0000;
+      color: #ff4d4d;
+      border-radius: 10px;
+      cursor: pointer;
+
+      box-shadow:
+        0 0 12px #ff0000,
+        0 0 25px #ff0000 inset;
+
+      transition: 0.2s ease;
     }
 
     button:hover {
-      background: #00f0ff;
+      background: #ff0000;
       color: black;
-      cursor: pointer;
+      box-shadow:
+        0 0 30px #ff0000,
+        0 0 60px #ff0000;
     }
   </style>
+
 </head>
 
 <body>
-  <h1>ACCESS NODE</h1>
-  <input type="password" id="pass" placeholder="Enter key">
-  <button onclick="enter()">Enter</button>
+  <div class="container">
+    <input type="password" id="pass" autocomplete="off">
+    <button onclick="enter()">ENTER</button>
+  </div>
 
   <script>
-    async function enter() {
-      const pass = document.getElementById("pass").value;
+    function enter() {
+      const input = document.getElementById("pass");
+      const pass = input.value;
 
-      // TEMP LOGIC (replace later)
       if (pass === "1401") {
-
-        // fake token (later comes from backend)
         const token = btoa(pass + Date.now());
-
-        // redirect with token
-        window.location.href = `https://your-app.vercel.app?token=${token}`;
-
+        window.location.href = "https://your-app.vercel.app?token=" + token;
       } else {
-        alert("Access denied");
+        input.value = "";
       }
     }
+
+    document.getElementById("pass").addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        enter();
+      }
+    });
   </script>
+
 </body>
 </html>
