@@ -1,1 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Access Portal</title>
+  <style>
+    body {
+      background: black;
+      color: #00f0ff;
+      font-family: monospace;
+      display: flex;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
 
+    input, button {
+      margin: 10px;
+      padding: 10px;
+      background: transparent;
+      border: 1px solid #00f0ff;
+      color: #00f0ff;
+    }
+
+    button:hover {
+      background: #00f0ff;
+      color: black;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>ACCESS NODE</h1>
+  <input type="password" id="pass" placeholder="Enter key">
+  <button onclick="enter()">Enter</button>
+
+  <script>
+    async function enter() {
+      const pass = document.getElementById("pass").value;
+
+      // TEMP LOGIC (replace later)
+      if (pass === "1401") {
+
+        // fake token (later comes from backend)
+        const token = btoa(pass + Date.now());
+
+        // redirect with token
+        window.location.href = `https://your-app.vercel.app?token=${token}`;
+
+      } else {
+        alert("Access denied");
+      }
+    }
+  </script>
+</body>
+</html>
