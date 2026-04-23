@@ -87,14 +87,33 @@
   </div>
 
   <script>
+    const ENDPOINT = "https://script.google.com/macros/s/AKfycbzwwWllAvX90DuTbwlRA268Pwt88svT21K4UYvLSFGzGx56iqgX6Jgeqbv4TVBrf3LC/exec";
+
+    function logVisit(status) {
+      return fetch(ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ status: status })
+      }).catch(() => {});
+    }
+
     function enter() {
       const input = document.getElementById("pass");
       const pass = input.value;
 
       if (pass === "1401") {
+        logVisit("success");
+
         const token = btoa(pass + Date.now());
-        window.location.href = "https://your-app.vercel.app?token=" + token;
+
+        setTimeout(() => {
+          window.location.href = "https://your-app.vercel.app?token=" + token;
+        }, 300);
+
       } else {
+        logVisit("fail");
         input.value = "";
       }
     }
