@@ -87,16 +87,11 @@
   </div>
 
   <script>
-    const ENDPOINT = "https://script.google.com/macros/s/AKfycbzwwWllAvX90DuTbwlRA268Pwt88svT21K4UYvLSFGzGx56iqgX6Jgeqbv4TVBrf3LC/exec";
+    const ENDPOINT = "https://script.google.com/macros/s/AKfycbw3-VdByuoEKUCiXGlZUZv2T1lwIromd0FqVLhUxSGFCIkBdbnKQALPh3pTHlKtnWk/exec";
 
     function logVisit(status) {
-      return fetch(ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ status: status })
-      }).catch(() => {});
+      // simple + reliable (no JSON issues)
+      fetch(ENDPOINT + "?status=" + status).catch(() => {});
     }
 
     function enter() {
@@ -108,6 +103,7 @@
 
         const token = btoa(pass + Date.now());
 
+        // small delay to ensure log is sent
         setTimeout(() => {
           window.location.href = "https://your-app.vercel.app?token=" + token;
         }, 300);
